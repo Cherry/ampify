@@ -141,7 +141,7 @@ module.exports = async (html, options) => {
         $(element).attr({
           width: round(size.width),
           height: round(size.height),
-          layout: 'responsive'
+          layout: 'intrinsic'
         });
       }
     } else if (src.indexOf('//') !== -1) {
@@ -153,7 +153,7 @@ module.exports = async (html, options) => {
       $(element).attr({
         width: round(size.width),
         height: round(size.height),
-        layout: 'responsive'
+        layout: 'intrinsic'
       });
     }
   });
