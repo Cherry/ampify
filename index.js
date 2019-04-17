@@ -191,8 +191,13 @@ module.exports = async (html, options) => {
   $('iframe[src*="http://www.youtube.com"],iframe[src*="https://www.youtube.com"],iframe[src*="http://youtu.be/"],iframe[src*="https://youtu.be/"]').each((index, element) => {
     youtube = true;
     const src = $(element).attr('src');
-    const width = $(element).attr('width');
-    const height = $(element).attr('height');
+    let width = $(element).attr('width');
+    let height = $(element).attr('height');
+    if(width === "100%" && height === 'auto'){
+      // default to 720p
+      width = 480;
+      height = 270;
+    }
     const path = url.parse(src).pathname.split('/');
     const ampYoutube = `
     <amp-youtube
