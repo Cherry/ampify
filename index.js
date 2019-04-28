@@ -37,7 +37,10 @@ module.exports = async (html, options) => {
     if (src && src.indexOf('//') !== -1) {
       // set a flag
       responses[src] = true;
-      const imageUrl = element.attribs.src;
+      let imageUrl = src;
+      if (src.indexOf('//') === 0) {
+        imageUrl = `https:${src}`;
+      }
       promises.push(axios.get(imageUrl, { responseType: 'arraybuffer' })
         .then((response) => {
           responses[src] = response;
@@ -156,6 +159,10 @@ module.exports = async (html, options) => {
         layout: 'intrinsic'
       });
     }
+  });
+
+  $('img').each((index, element) => {
+    $(element).attr('loading', null); // remove `loading` attribute from all images, as it's not valid amp syntax
   });
 
   /* inline styles */
